@@ -1,0 +1,4 @@
+This is a place holder file.
+Download the real Java 1.6.0_43-linux-x64.bin from Oracle and place it in this directory.
+
+If the version differs, this can be overridden in the config.

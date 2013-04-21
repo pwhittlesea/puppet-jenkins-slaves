@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# watchdog
+#
+
+NAME=launch-slave
+START=/home/<%= user %>/bin/launch-slave
+GREP=/bin/grep
+PS=/bin/ps
+NOP=/bin/true
+
+$PS -ef|$GREP -v grep|$GREP $NAME >/dev/null 2>&1
+case "$?" in
+   0)
+   # It is running in this case so we do nothing.
+   $NOP
+   ;;
+   1)
+   $START >/dev/null 2>&1 &
+   ;;
+esac
+
+exit 0
