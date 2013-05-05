@@ -1,32 +1,13 @@
 import "classes/*.pp"
 
 node 'slave1' {
-  class { "slave": }
+  slave { "master":
+    user => "user1"
+  }
 }
 
-class slave (
-  $user = "jenkins"
-) {
-
-  class {"jenkins":
-    user       => "${user}",
-    master     => 'jenkins',
-    masterPort => '8080'
+node 'slave2' {
+  slave { "master":
+    user => "user2"
   }
-
-  class {"git": }
-
-  class {"hosts": }
-
-  class {"java": }
-
-  class {"maven": }
-
-  class {"ntp":
-    enable => true,
-    ensure => running
-  }
-
-  class {"svn": }
-
 }

@@ -1,3 +1,33 @@
+# == Class: java
+#
+# This class installs Oracle Java into /opt/java.
+# Executables will be sym-linked in /bin/java and /bin/javac
+#
+# === Parameters:
+#
+# $distribution:: jdk or jre.
+#
+# $version:: The version of Java to install.
+#
+# === Requires:
+#
+# The Oracle Java compressed binaries need to be downloaded and placed in
+# puppet:///modules/java/ with the name format ${distribution}-${version}-linux-${java_platform}.bin
+#
+# === Sample Usage:
+#
+#   class {'java':
+#     distribution => 'jre',
+#   }
+#
+# === Authors
+#
+# Phillip Whittlesea <pw.github@thega.me.uk>
+#
+# === Copyright
+#
+# Copyright 2013 Phillip Whittlesea, unless otherwise noted.
+#
 class java (
   $distribution = 'jdk',
   $version      = '1.6.0_43'

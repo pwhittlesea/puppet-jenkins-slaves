@@ -1,3 +1,31 @@
+# == Class: maven
+#
+# This class installs Apache Maven into /opt/maven.
+# Executables will be sym-linked in /bin/mvn
+#
+# === Parameters:
+#
+# $version:: The version of Maven to install.
+#
+# === Requires:
+#
+# The Apache Maven compressed binaries need to be downloaded and placed in
+# puppet:///modules/maven/ with the name format apache-maven-${version}-bin.zip
+#
+# === Sample Usage:
+#
+#   class {'maven':
+#     version => '2.2.1',
+#   }
+#
+# === Authors
+#
+# Phillip Whittlesea <pw.github@thega.me.uk>
+#
+# === Copyright
+#
+# Copyright 2013 Phillip Whittlesea, unless otherwise noted.
+#
 class maven (
   $version      = '2.2.1'
 ) {
