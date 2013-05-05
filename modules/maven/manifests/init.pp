@@ -10,7 +10,7 @@ class maven (
     default => "/opt/maven",
   }
 
-  file { "${mvn_base}":
+  file { $mvn_base:
     ensure => "directory",
     owner  => "root",
     group  => "root",
@@ -27,8 +27,8 @@ class maven (
     require => File["mvn-folder"]
   }
 
-  exec { "unzip apache-maven-${version}-bin.zip":
-    command     => "/usr/bin/unzip apache-maven-${version}-bin.zip",
+  exec { "unzip -fo apache-maven-${version}-bin.zip":
+    command     => "/usr/bin/unzip -fo apache-maven-${version}-bin.zip",
     cwd         => "${mvn_base}",
     creates     => "${mvn_base}/apache-maven-${version}/",
     alias       => "mvn-extract",
@@ -36,7 +36,7 @@ class maven (
     subscribe   => File["mvn-exe"]
   }
 
-  $mvn_dirs = [ 
+  $mvn_dirs = [
     "${mvn_base}/apache-maven-${version}/",
     "${mvn_base}/apache-maven-${version}/bin/",
     "${mvn_base}/apache-maven-${version}/boot/",
@@ -60,5 +60,10 @@ class maven (
     require => File["${mvn_base}/apache-maven-${version}/conf"]
   }
 
+  file { '/bin/mvn':
+    ensure  => "link",
+    target  => "${mvn_base}/apache-maven-${version}/bin/mvn",
+    require => File["${mvn_base}/apache-maven-${version}/bin/"]
+  }
 
 }

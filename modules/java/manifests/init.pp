@@ -37,4 +37,16 @@ class java (
     subscribe   => File["java-exe"]
   }
 
+  file { '/bin/java':
+    ensure  => "link",
+    target  => "${java_base}/${distribution}${version}/bin/java",
+    require => File["java-folder"]
+  }
+
+  file { '/bin/javac':
+    ensure  => "link",
+    target  => "${java_base}/${distribution}${version}/bin/javac",
+    require => File["java-folder"]
+  }
+
 }

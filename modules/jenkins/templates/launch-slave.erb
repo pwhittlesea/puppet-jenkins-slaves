@@ -5,5 +5,5 @@ JENKINS_MASTER='http://<%= master %>:<%= masterPort %>'
 SLAVE_NAME=<%= hostname %>
 USER=<%= user %>
 
-wget -quiet $JENKINS_MASTER/jnlpJars/slave.jar -O $JENKINS_HOME/bin/slave.jar
+wget --quiet $JENKINS_MASTER/jnlpJars/slave.jar -O $JENKINS_HOME/bin/slave.jar
 java -jar $JENKINS_HOME/bin/slave.jar -jnlpUrl $JENKINS_MASTER/computer/$SLAVE_NAME/slave-agent.jnlp

@@ -9,12 +9,6 @@ class jenkins (
     uid => 500
   }
 
-  add_ssh_key {"${user}":
-    key  => "${sshKey}",
-    type => "ssh-rsa",
-    name => "main"
-  }
-
   file { "/home/${user}/bin":
     ensure  => "directory",
     owner   => "${user}",
@@ -39,11 +33,34 @@ class jenkins (
     content => template("jenkins/watchdog.erb"),
 	require => File["jenkins-bin-folder"]
   }
-  
+
   cron { "slave-watchdog":
     command => "/home/${user}/bin/watchdog",
     user    => "${user}",
     minute  => '*/5',
 	require => File["watchdog-file"]
   }
+
+  file { "/opt/jenkins":
+    ensure  => "directory",
+    owner   => "${user}",
+    group   => "${user}",
+    alias   => "jenkins-folder",
+    require => User["${user}"]
+  }
+
+  file { "/opt/jenkins/.m2":
+    ensure  => "directory",
+    owner   => "${user}",
+    group   => "${user}",
+    alias   => "jenkins-m2",
+    require => File["jenkins-folder"]
+  }
+
+  file { "/home/${user}/.m2":
+    ensure  => "link",
+    target  => "/opt/jenkins/.m2",
+    require => File["jenkins-m2"]
+  }
+
 }
